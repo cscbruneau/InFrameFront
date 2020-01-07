@@ -1,4 +1,170 @@
 <div>
-    <h5>test</h5>
-    <input type="text" pInputText />
+    <div *ngIf="inputParam.fieldType=='inputText'" class="col-md-5" InputText>
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+            <input id="{{ inputParam.id }}" type="text" pInputText class="form-control" [(ngModel)]="fieldValue"
+                name="{{inputParam.fieldName}}" [required]="false" [disabled]="!inputParam.active"
+                title="{{inputParam.tooltip}}" placeholder="{{inputParam.defaultValue}}" />
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='password'" class="col-md-5">
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+            <input id="{{ inputParam.id }}" type="password" pPassword class="form-control" [(ngModel)]="fieldValue"
+                name="{{inputParam.fieldName}}" [required]="true" [disabled]="!inputParam.active"
+                title="{{inputParam.tooltip}}" placeholder="{{inputParam.defaultValue}}" />
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='checkbox'" class="col-md-5">
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+            <span *ngFor="let valueCheckbox of checkboxListPossibleValues; let c = index " style="margin-right:10px">
+                <div class="ui-g-12">
+                    <p-checkbox name="{{ inputParam.name }}" label=" {{ valueCheckbox }}" value=" {{ valueCheckbox }}"
+                        [(ngModel)]="inputParamValue" inputId=" {{c}}" [required]="false"
+                        [disabled]="!inputParam.active">
+                    </p-checkbox>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='radioButton'" class="col-md-5">
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+            <span *ngFor="let valueRadioButton of radioButtonListPossibleValues; let i = index "
+                style="margin-right:10px">
+                <div class="ui-g-12">
+                    <p-radioButton name="{{ inputParam.name }}" label=" {{ valueRadioButton }}"
+                        [(ngModel)]="inputParamValue" value=" {{ valueRadioButton }}" inputId="{{i}}">
+                    </p-radioButton>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='date'" class="col-md-5" >
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+            <p-calendar id="{{ inputParam.id }}"
+                [(ngModel)]="valueDate"
+                name="{{inputParam.fieldName}}" 
+                [required]="false" 
+                [disabled]="!inputParam.active"
+                title="{{inputParam.tooltip}}" 
+                dateFormat="dd.mm.yy"
+                >
+            </p-calendar>
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='month'" class="col-md-5" >
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+            <p-calendar id="{{ inputParam.id }}"
+                [(ngModel)]="valueDate"
+                name="{{inputParam.fieldName}}" 
+                [required]="false" 
+                [disabled]="!inputParam.active"
+                title="{{inputParam.tooltip}}" 
+                view="month" 
+                dateFormat="mm/yy" 
+                [yearNavigator]="true" 
+                yearRange="2000:2030"
+                >
+            </p-calendar>
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='time'" class="col-md-5" >
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+                <p-calendar 
+                    class="ng-tns-c6-12 ng-valid ng-touched ui-inputwrapper-filled ng-dirty"
+                    [(ngModel)]="valueDate"
+                    id="{{ inputParam.id }}"
+                    name="{{inputParam.fieldName}}" 
+                    [required]="false" 
+                    [disabled]="!inputParam.active"
+                    timeOnly="true"
+                    showTime="true"
+                    hourFormat="24"
+                    title="{{inputParam.tooltip}}"
+                    placeholder>
+                </p-calendar>    
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='color'" class="col-md-5" >
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+                <p-colorPicker [(ngModel)]="colorValue"></p-colorPicker>
+        </div>
+    </div>  
+    <div *ngIf="inputParam.fieldType=='number'" class="col-md-5" InputText>
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+            <input 
+                id="{{ inputParam.id }}" 
+                type="text" 
+                pInputText
+                pKeyFilter="int"
+                class="form-control" 
+                [(ngModel)]="fieldValueNumber"
+                name="{{inputParam.fieldName}}" 
+                [required]="false" 
+                [disabled]="!inputParam.active"
+                title="{{inputParam.tooltip}}" 
+                placeholder="{{inputParam.defaultValue}}" />
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='email'" class="col-md-10">
+        <div class="form-group">
+            <label for=" {{ inputParam.id }} "> {{inputParam.fieldLabel}} </label>
+            <input 
+                id="{{ inputParam.id }}" 
+                type="text" 
+                pInputText
+                pKeyFilter="email"
+                class="form-control" 
+                [(ngModel)]="fieldValueNumber"
+                name="{{inputParam.fieldName}}" 
+                [required]="false" 
+                [disabled]="!inputParam.active"
+                title="{{inputParam.tooltip}}" 
+                placeholder="{{inputParam.defaultValue}}" />
+                <p-message severity="error" text="Not a valid email" ></p-message>
+        </div>
+    </div>   
+    
+    <div *ngIf="inputParam.fieldType=='submit'" class="col-md-10">
+        <div class="form-group">
+            <p-button 
+             type="button"
+             id="{{ inputParam.id }}" 
+             label="{{inputParam.fieldName}}" 
+             [disabled]="!inputParam.active"
+             (onClick)="handleClick($event)"
+            >
+            </p-button>
+        </div>
+    </div>
+
+    <div *ngIf="inputParam.fieldType=='reset'" class="col-md-10">
+        <div class="form-group">
+            <p-button
+             type="button"
+             id="{{ inputParam.id }}" 
+             label="{{inputParam.fieldName}}" 
+             [disabled]="!inputParam.active"
+             (onClick)="handleClick($event)"
+            >
+            </p-button>
+        </div>
+    </div>
+
+
+    
+
 </div>
