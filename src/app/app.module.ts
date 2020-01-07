@@ -7,6 +7,19 @@ import { AdminComponent } from './admin/admin.component';
 import { GenericInputComponent } from './generic-input/generic-input.component';
 import { DemandFormComponent } from './demand-form/demand-form.component';
 import { FormConfigurationService } from './services/form-configuration.service';
+import { FormsModule } from '@angular/forms';
+import {CheckboxModule} from 'primeng/checkbox';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {PasswordModule} from 'primeng/password';
+import {CalendarModule} from 'primeng/calendar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ColorPickerModule} from 'primeng/colorpicker';
+import {KeyFilterModule} from 'primeng/keyfilter';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {ButtonModule} from 'primeng/button';
+import {FileUploadModule} from 'primeng/fileupload';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +30,19 @@ import { FormConfigurationService } from './services/form-configuration.service'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    CheckboxModule,
+    RadioButtonModule,
+    PasswordModule,
+    CalendarModule,
+    BrowserAnimationsModule,
+    ColorPickerModule,
+    KeyFilterModule,
+    MessagesModule,
+    MessageModule,
+    ButtonModule,
+    FileUploadModule
   ],
   providers: [FormConfigurationService],
   bootstrap: [AppComponent]
