@@ -1,0 +1,9 @@
+<div class="form-container">
+    <div *ngFor="let column of this.listOfColumns let c = index" class="{{columnClassGridWidth}}">
+        <div *ngFor="let group of this.getGroupsOfColumn(c) let g = index">
+            <div *ngFor="let field of group.Fields let f = index" class="row">
+                <p>field.fieldName</p>
+            </div>
+        </div>
+    </div>
+</div>

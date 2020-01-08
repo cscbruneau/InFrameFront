@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'InForms';
+  title = 'InFrameFront';
+  checked1: boolean = false;
+
+  checked2: boolean = true;
 }
