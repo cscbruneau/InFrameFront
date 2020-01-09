@@ -1,10 +1,15 @@
 <div class="form-container">
-    <div *ngFor="let column of this.getColumns() let c = index"
-        [ngClass]="{'col-md-12': this.getColumns().length === 1, 'col-md-6': this.getColumns().lenght === 2, 'col-md-4': this.getColumns().lenght === 3, 'col-md-3': this.getColumns().lenght === 4 }">
-        <div *ngFor="let group of this.getGroupsOfColumn(c); let g = index">
-            <div *ngFor="let element of group.formFields; let e = index"  class="row">
-            <!--<div *ngFor="let element of g.formFields; let e = index" class="row">-->
-                <app-generic-input [inputParam]="element" [labelBehavior]="this.frmConfig.behavior"></app-generic-input>
+    <div id="form-title">{{this.form.title}}</div>
+    <div class="row">
+        <div *ngFor="let column of listIndexColumns let c = index" class="{{columnWidthClass}}">
+            <div *ngFor="let group of getGroupsOfColumn(column); let g = index" class="card p-1 mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{group.title}}</h5>
+                    <div *ngFor="let field of group.formFields; let f = index" class="row">
+                        <app-generic-input [inputParam]="field" [labelBehavior]="form.behavior">
+                        </app-generic-input>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

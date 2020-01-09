@@ -11,63 +11,63 @@ export class GenericInputComponent implements OnInit {
 
   // Variables entrée 
   @Input() inputParam: Field;
-  @Input() labelBehavior: null;
-  fieldValue: string;
+  @Input() labelBehavior: string;
+  _value: any = null;
   checkboxListPossibleValues: any[];
   checkboxGroupName: string;
-  radioButtonListPossibleValues: any[];
-  radioButtonGroupName: string;
+
   inputParamValue: any[];
   valueDate: Date;
   colorValue: string;
-  fieldValueNumber: number;
-
+  
+  fieldParameters : any ;
   taskForm: FormGroup;
+
+  fieldsTypeLabelStandard: Array<{fieldType : string, isLabelStandard : boolean}>;
+
+ 
+
+
 
   constructor() {
 
-    /** Cas à traiter
-     * -- text
-     * -- number
-     * -- checkbox
-     * -- radio
-     * tel
-     * -- email
-     * -- password
-     * -- date
-     * -- month
-     * week
-     * -- time
-     * url
-     * file
-     * -- submit
-     * range
-     * search
-     * -- reset
-     * -- color
-     */
-    /** Bouchon */
-    this.fieldValue = 'valeur du champs todo';// variable à récupérer via API
-    this.checkboxListPossibleValues = ['New York', 'San Francisco', 'Los Angeles'];
-    this.checkboxGroupName = 'Ville';
-    this.radioButtonListPossibleValues = ['Admin', 'User', 'Superviseur', 'Visiteur'];
-    this.radioButtonGroupName = 'Fonction';
-    this.inputParamValue = [];
-    this.valueDate = new Date();
+    this.fieldsTypeLabelStandard = [
+      {fieldType : 'inputText', isLabelStandard : true},
+      {fieldType : 'password', isLabelStandard : true},
+      {fieldType : 'checkbox', isLabelStandard : false},
+      {fieldType : 'radio', isLabelStandard : false},
+      {fieldType : 'date', isLabelStandard : true},
+      {fieldType : 'month', isLabelStandard : true},
+      {fieldType : 'time', isLabelStandard : true},
+      {fieldType : 'color', isLabelStandard : true},
+      {fieldType : 'number', isLabelStandard : true},
+      {fieldType : 'email', isLabelStandard : true},
+      {fieldType : 'submit', isLabelStandard : false},
+      {fieldType : 'reset', isLabelStandard : false}
+    ]
+
   }
 
   ngOnInit() {
+
     console.log('champs transmis', this.inputParam);
-    console.log('type : ' + this.inputParam.fieldType);
-    console.log('id : ' + this.inputParam.id);
-    console.log('fieldName : ' + this.inputParam.fieldName);
+
+    this.fieldParameters = this.inputParam.fieldParameters ; 
+
+  }
+
+  checkFieldParameters() {
 
   }
 
   valueChanged() {
     console.log('Valeur variable', this.inputParamValue);
-
   }
+
+  isStandardLabel() {    
+       return this.fieldsTypeLabelStandard.find(x => x.fieldType === this.inputParam.fieldType).isLabelStandard;// ajouter vérif si fieldtype inexistant
+  }
+
   handleClick(){
     console.log('Action sur bouton ');
   }
