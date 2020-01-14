@@ -4,69 +4,211 @@
             <label for=" {{ inputParam.fieldName }} "> {{inputParam.fieldLabel}} </label>
 
             <div *ngIf="inputParam.fieldType=='inputText'">
-                <input id="{{ inputParam.fieldName }}" type="text" pInputText class="form-control" [(ngModel)]="_value"
-                    name="{{inputParam.fieldName}}" [required]="false" [disabled]="!inputParam.active"
-                    title="{{inputParam.tooltip}}" value="{{inputParam.defaultValue}}" />
+                <input  id="{{ inputParam.fieldName }}" 
+                        name="{{inputParam.fieldName}}" 
+                        type="text"
+                        pInputText
+                        title="{{inputParam.tooltip}}"
+                        [(ngModel)]="_value"
+                        [disabled]="!inputParam.active"
+                        class="form-control" 
+                        [required]="fieldParameters['required']"                       
+                         />
             </div>
-
+            
             <div *ngIf="inputParam.fieldType=='password'">
-                <input id="{{ inputParam.id }}" type="password" pPassword class="form-control" [(ngModel)]="_value"
-                    name="{{inputParam.fieldName}}" [required]="true" [disabled]="!inputParam.active"
-                    title="{{inputParam.tooltip}}" placeholder="{{inputParam.defaultValue}}" />
+                <input 
+                    id="{{ inputParam.fieldName }}"
+                    name="{{inputParam.fieldName}}"
+                    type="password"
+                    pPassword 
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active"
+                    class="form-control" 
+                    [required]="fieldParameters['required']" 
+                    promptLabel="{{ fieldParameters['promptLabel'] }}"
+                    weakLabel="{{ fieldParameters['weakLabel'] }}" 
+                    mediumLabel="{{ fieldParameters['mediumLabel'] }}" 
+                    strongLabel=" {{ fieldParameters['mediumLabel'] }}"
+                    showPassword="{{ fieldParameters['showPassword'] }}"
+                   />
             </div>
 
+            <!--TODO DATES-->
             <div *ngIf="inputParam.fieldType=='date'">
-                <p-calendar id="{{ inputParam.id }}" [(ngModel)]="_value" name="{{inputParam.fieldName}}"
-                    [required]="false" [disabled]="!inputParam.active" title="{{inputParam.tooltip}}"
-                    dateFormat="dd/mm/yy">
+                <p-calendar 
+                    id="{{ inputParam.fieldName }}"
+                    name="{{inputParam.fieldName}}"
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value" 
+                    [disabled]="!inputParam.active" 
+                    class=""
+
+                    [required]="false" 
+                    dateFormat="dd/mm/yy"  showIcon="true">
                 </p-calendar>
             </div>
 
             <div *ngIf="inputParam.fieldType=='month'">
-                <p-calendar id="{{ inputParam.id }}" [(ngModel)]="_value" name="{{inputParam.fieldName}}"
-                    [required]="false" [disabled]="!inputParam.active" title="{{inputParam.tooltip}}" view="month"
+                <p-calendar 
+                    id="{{ inputParam.fieldName }}"
+                    name="{{inputParam.fieldName}}"
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class=""
+
+
+                    [required]="false"  view="month"
                     dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030">
                 </p-calendar>
             </div>
 
             <div *ngIf="inputParam.fieldType=='time'">
-                <p-calendar class="ng-tns-c6-12 ng-valid ng-touched ui-inputwrapper-filled ng-dirty"
-                    [(ngModel)]="_value" id="{{ inputParam.id }}" name="{{inputParam.fieldName}}" [required]="false"
-                    [disabled]="!inputParam.active" timeOnly="true" showTime="true" hourFormat="24"
-                    title="{{inputParam.tooltip}}" placeholder>
+                <p-calendar 
+                    id="{{ inputParam.fieldName }}"
+                    name="{{inputParam.fieldName}}"
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class="ng-tns-c6-12 ng-valid ng-touched ui-inputwrapper-filled ng-dirty"
+                    
+                    [required]="false"
+                    timeOnly="true" showTime="true" hourFormat="24"
+                    placeholder>
                 </p-calendar>
             </div>
+             <!--TODO FIN DATES-->
 
             <div *ngIf="inputParam.fieldType=='color'">
-                <p-colorPicker [(ngModel)]="colorValue" [inline]="false"></p-colorPicker>
+                <p-colorPicker 
+                    id="{{ inputParam.fieldName }}" 
+                    name="{{inputParam.fieldName}}"
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class=""
+                    [required]="fieldParameters['required']"
+                    [inline]="fieldParameters['inline']"
+                    [format]="fieldParameters['format']"
+                ></p-colorPicker>
             </div>
 
             <div *ngIf="inputParam.fieldType=='number'" InputText>
-                <input id="{{ inputParam.id }}" type="text" pInputText pKeyFilter="int" class="form-control"
-                    [(ngModel)]="_value" name="{{inputParam.fieldName}}" [required]="false"
-                    [disabled]="!inputParam.active" title="{{inputParam.tooltip}}"
-                    placeholder="{{inputParam.defaultValue}}" />
+                <p-spinner 
+                    id="{{ inputParam.fieldName }}" 
+                    name="{{inputParam.fieldName}}" 
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class=""
+                    [required]="fieldParameters['required']"
+                    [step]="fieldParameters['step']"
+                    [thousandSeparator]="fieldParameters['thousandSeparator']"
+                    [min]="fieldParameters['min']"
+                    [max]="fieldParameters['max']"
+                    [decimalSeparator]="fieldParameters['decimalSeparator']"
+                    [formatInput]="fieldParameters['formatInput']"
+                    placeholder="{{inputParam.defaultValue}}"  
+                    >
+                </p-spinner>
+            </div>
+           
+            <div *ngIf="inputParam.fieldType=='keyfilter'">
+                <input id="{{ inputParam.fieldName }}"
+                       name="{{ inputParam.fieldName }}" 
+                       type="text" 
+                       title="{{ inputParam.tooltip }}" 
+                       [(ngModel)]="_value"
+                       [disabled]="!inputParam.active" 
+                       class="form-control"
+                       [required]="fieldParameters['required']"
+                       [pKeyFilter]="regExpKeyFilter"
+                       [pValidateOnly]="fieldParameters['pValidateOnly']"
+                       placeholder="{{ inputParam.defaultValue }}"
+                       (blur)= "verifMatchRexExp(inputParam.fieldParameters['regExp'])"
+                      />  
+                <p-message 
+                    *ngIf="messageAlert!=null && messageAlert!=''"
+                    severity="error" 
+                    text="{{ messageAlert }}"
+                   >
+                </p-message>
             </div>
 
-            <div *ngIf="inputParam.fieldType=='email'">
-                <input id="{{ inputParam.id }}" type="text" pInputText pKeyFilter="email" class="form-control"
-                    [(ngModel)]="_value" name="{{inputParam.fieldName}}" [required]="false"
-                    [disabled]="!inputParam.active" title="{{inputParam.tooltip}}"
-                    placeholder="{{inputParam.defaultValue}}" />
-                <p-message severity="error" text="Not a valid email"></p-message>
+            <div *ngIf="inputParam.fieldType=='dropdown'" class="col-md-12">
+                <p-dropdown 
+                    id="{{ inputParam.fieldName}}"
+                    name="{{inputParam.fieldName}}"
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class=""
+                    [required]="fieldParameters['required']"
+                    [options]="fieldParameters['options']" 
+                    placeholder="Selectionner {{ inputParam.fieldParameters ['name']}}" 
+                    [optionLabel]="fieldParameters['optionLabel']"
+                    filter="fieldParameters['filterOn']" 
+                    filterBy="fieldParameters['filterBy']" 
+                    filterMatchMode="fieldParameters['filterMatchMode']" 
+                   >
+                </p-dropdown>
             </div>
 
+            <div *ngIf="inputParam.fieldType=='selectbutton'" class="col-md-12">
+                <p-selectButton 
+                    id="{{ inputParam.fieldName}}"
+                    name="{{inputParam.fieldName}}" 
+                    title="{{inputParam.tooltip}}"
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class=""
+                    [required]="fieldParameters['required']"
+                    [options]="fieldParameters['options']"
+                    [optionLabel]="fieldParameters['optionLabel']"
+                    [multiple]="fieldParameters['multiple']"
+                    ></p-selectButton>
+            </div>
+
+            <div *ngIf="inputParam.fieldType=='multiselect'" class="col-md-12">
+                <p-multiSelect 
+                    id="{{ inputParam.fieldName}}"
+                    name="{{inputParam.fieldName}}" 
+                    title="{{inputParam.tooltip}}"
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class=""
+                    [required]="fieldParameters['required']"
+                    [options]="fieldParameters['options']"
+                    [optionLabel]="fieldParameters['optionLabel']"  
+                    [selectionLimit]="fieldParameters['selectionLimit']" 
+                    filter="fieldParameters['filterOn']" 
+                    filterBy="fieldParameters['filterBy']" 
+                    filterMatchMode="fieldParameters['filterMatchMode']" 
+                >
+                </p-multiSelect>
+            </div>
             <!-- composants ici -->
-
         </div>
     </div>
 
     <div *ngIf="inputParam.fieldType=='checkbox'" class="col-md-12">
         <div class="ui-g" style="width:250px;margin-bottom:10px">
-            <span *ngFor="let valueCheckbox of checkboxListPossibleValues; let c = index " style="margin-right:10px">
+            <h5>{{ inputParam.fieldLabel }}</h5>
+            <span *ngFor="let valueCheckbox of fieldParameters['options']; let c = index " style="margin-right:10px"> 
                 <div class="ui-g-12">
-                    <p-checkbox name="{{ inputParam.name }}" label=" {{ valueCheckbox }}" value=" {{ valueCheckbox }}"
-                        [(ngModel)]="_value" inputId=" {{c}}" [required]="false" [disabled]="!inputParam.active">
+                    <p-checkbox 
+                        id="{{ fieldParameters[name] }}"
+                        name="{{ fieldParameters[name] }}"
+                        title="{{ fieldParameters[name] }}" 
+                        [(ngModel)]="_value"
+                        [disabled]="!inputParam.active" 
+                        label=" {{ valueCheckbox.label ? valueCheckbox.label  : valueCheckbox.value  }}"
+                        class=""
+                        inputId=" {{c}}" 
+                        [required]="fieldParameters['required']"
+                    >
                     </p-checkbox>
                 </div>
             </span>
@@ -86,18 +228,17 @@
         </div>
     </div>
 
-    <div *ngIf="inputParam.fieldType=='submit'" class="col-md-12">
+    <div *ngIf="inputParam.fieldType=='button'" class="col-md-12">
         <div class="form-group">
-            <p-button type="button" id="{{ inputParam.id }}" label="{{inputParam.fieldLabel}}"
-                [disabled]="!inputParam.active" (onClick)="handleClick($event)">
-            </p-button>
-        </div>
-    </div>
-
-    <div *ngIf="inputParam.fieldType=='reset'" class="col-md-12">
-        <div class="form-group">
-            <p-button type="button" id="{{ inputParam.id }}" label="{{inputParam.fieldLabel}}"
-                [disabled]="!inputParam.active" (onClick)="handleClick($event)">
+            <p-button 
+                id="{{ inputParam.fieldName}}"
+                label="{{inputParam.fieldLabel}}"
+                [disabled]="!inputParam.active"
+                class=""
+                type="{{ fieldParameters['type'] }}"
+                icon= "{{ fieldParameters['icon'] }}"
+                iconPos = "{{ fieldParameters['iconPos'] }}"
+                (onClick)="handleClick($event)">
             </p-button>
         </div>
     </div>
