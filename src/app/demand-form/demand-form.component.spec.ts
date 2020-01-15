@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DemandFormComponent } from './demand-form.component';
 
-describe('GenericFormComponent', () => {
+describe('DemandFormComponent', () => {
   let component: DemandFormComponent;
   let fixture: ComponentFixture<DemandFormComponent>;
 

@@ -7,7 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'InFrameFront';
-  checked1: boolean = false;
+  
+  sheets = document.styleSheets;
 
-  checked2: boolean = true;
+  getLog();
+
+
+
+  getLog(){
+    console.log(this.sheets);
+  }
+
+
 }
+
