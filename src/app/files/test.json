@@ -45,7 +45,7 @@
 						"defaultValue": "18",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2376,
@@ -61,7 +61,7 @@
 						"defaultValue": "",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2379,
@@ -93,7 +93,23 @@
 						"defaultValue": "",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
+					},
+					{
+						"id":2380,
+						"groupId":1,
+						"demandTypeId":1,
+						"fieldName":"ville",
+						"fieldType":"dropdown",
+						"fieldLabel":"Ville",
+						"isDynamic": false,
+						"fieldParameters": {"name":"ville", "options": [{"name":"Toulouse","code":"TO"},{"name":"Nantes","code":"NA"},{"name":"Paris","code":"PA"},{"name":"Bordeau","code":"BO"}]},
+						"fieldOrder": 1,
+						"tooltip":"Champ de saisie genre",
+						"defaultValue": "",
+						"active": true,
+						"workflowState": 1,
+						"behavior": 0
 					}
 				]
 			},
@@ -152,7 +168,7 @@
 						"defaultValue": "",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2374,
@@ -168,7 +184,7 @@
 						"defaultValue": "",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2377,
@@ -184,7 +200,7 @@
 						"defaultValue": "",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					}
 				]
 			},
@@ -211,7 +227,7 @@
 						"defaultValue": "#1976D2",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2375,
@@ -227,7 +243,7 @@
 						"defaultValue": "blablabla",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2376,
@@ -243,7 +259,7 @@
 						"defaultValue": "Android",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2377,
@@ -259,7 +275,7 @@
 						"defaultValue": "blablabla",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					},
 					{
 						"id":2378,
@@ -275,7 +291,7 @@
 						"defaultValue": "blablabla",
 						"active": true,
 						"workflowState": 1,
-						"comportement": 0
+						"behavior": 0
 					}
 				]
 			}

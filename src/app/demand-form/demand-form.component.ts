@@ -6,6 +6,7 @@ declare var require: any;
 var JSON = require('../files/test.json');
 
 import { GenericInputComponent } from '../generic-input/generic-input.component';
+import { FormConfigService } from '../services/form-config.service';
 
 @Component({
   selector: 'app-demand-form',
@@ -14,6 +15,10 @@ import { GenericInputComponent } from '../generic-input/generic-input.component'
 })
 export class DemandFormComponent implements OnInit {
 
+  formConfigAPIRes: any;
+  errorMessage: string = "default";
+  dataLoaded: boolean = false;
+
   form: FormConfig;
   groups: Group[] = [];
   fields: Field[] = [];
@@ -21,19 +26,30 @@ export class DemandFormComponent implements OnInit {
   columnWidthClass: string;
   listIndexColumns: number[] = [];
 
-  constructor() {
-
-  }
+  constructor(private formConfigService: FormConfigService) { }
 
   ngOnInit() {
-    this.form = JSON.form;
-    this.getColumnWidthClass();
-    this.getColumns()
-    this.form.formGroups.forEach(group => {
+    
+    this.getFormConfig();
+    console.log(this.errorMessage);
 
-    });
 
   }
+
+  getFormConfig() {
+    console.log("yoyoyoyoyoy");
+    this.formConfigService.getJSON().subscribe(
+      x => {
+        console.log(x);
+        this.form = x;
+        this.getColumnWidthClass();
+        this.getColumns();
+        this.dataLoaded = true;
+      },
+      error => this.errorMessage = "errorroroororo"
+    );
+  }
+
   // construit la class bootstrap pour la colonne
   getColumnWidthClass() {
     this.columnWidthClass = 'col-md-' + (12 / this.form.columnNumber).toString();
@@ -56,14 +72,14 @@ export class DemandFormComponent implements OnInit {
     let i;
     for (i = 0; i < this.form.formGroups.length; i++) {
       listIndexGroup.push(i);
-      console.log(listIndexGroup);
+      //console.log(listIndexGroup);
     }
 
     this.form.formGroups.filter(group => group.columnIndex === colIndex).forEach(group => {
       this.groups.push(group);
     });
 
-    console.log(this.groups[0]);
+    //console.log(this.groups[0]);
     return this.groups
 
   }

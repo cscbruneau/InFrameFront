@@ -1,12 +1,12 @@
 <div class="form-container">
-    <div id="form-title">{{this.form.title}}</div>
+    <div id="form-title" *ngIf="dataLoaded">{{form.title}}</div>
     <div class="row">
         <div *ngFor="let column of listIndexColumns let c = index" class="{{columnWidthClass}}">
             <div *ngFor="let group of getGroupsOfColumn(column); let g = index" class="card p-1 mt-3">
                 <div class="card-body">
                     <h5 class="card-title">{{group.title}}</h5>
                     <div *ngFor="let field of group.formFields; let f = index" class="row">
-                        <app-generic-input [inputParam]="field" [labelBehavior]="form.behavior">
+                        <app-generic-input [inputParam]="field" [labelBehavior]="form.behavior" class="col-md-12">
                         </app-generic-input>
                     </div>
                 </div>

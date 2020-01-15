@@ -78,6 +78,7 @@ export class GenericInputComponent implements OnInit {
     console.log('Valeur variable', this.inputParamValue);
   }
 
+
   isStandardLabel() {
     let verifExistTypeField;
     verifExistTypeField = this.fieldsTypeLabelStandard.findIndex(x => x.fieldType === this.inputParam.fieldType);
@@ -106,6 +107,7 @@ export class GenericInputComponent implements OnInit {
     }
     console.log("message alert" + this.messageAlert);
   }
+  
 
   handleClick() {
     console.log('Action sur bouton ');

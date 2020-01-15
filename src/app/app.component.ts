@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'InForms';
+  title = 'InFrameFront';
+  
+  sheets = document.styleSheets;
+
+  getLog();
+
+
+
+  getLog(){
+    console.log(this.sheets);
+  }
+
+
 }
+
