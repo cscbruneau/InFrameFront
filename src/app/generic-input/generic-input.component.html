@@ -116,42 +116,43 @@
             </div>
            
             <div *ngIf="inputParam.fieldType=='keyfilter'">
-                <input id="{{ inputParam.fieldName}}"
-                       name="{{inputParam.fieldName}}" 
+                <input id="{{ inputParam.fieldName }}"
+                       name="{{ inputParam.fieldName }}" 
                        type="text" 
-                       title="{{inputParam.tooltip}}" 
+                       title="{{ inputParam.tooltip }}" 
                        [(ngModel)]="_value"
                        [disabled]="!inputParam.active" 
                        class="form-control"
-
-                       pKeyFilter="email" 
-                      
-                       [pValidateOnly]="true"
-                       name="{{inputParam.fieldName}}" 
-                       [required]="false"
-                     
-                       placeholder="{{inputParam.defaultValue}}"
-                      />
-
+                       [required]="fieldParameters['required']"
+                       [pKeyFilter]="regExpKeyFilter"
+                       [pValidateOnly]="fieldParameters['pValidateOnly']"
+                       placeholder="{{ inputParam.defaultValue }}"
+                       (blur)= "verifMatchRexExp(inputParam.fieldParameters['regExp'])"
+                      />  
+                <p-message 
+                    *ngIf="messageAlert!=null && messageAlert!=''"
+                    severity="error" 
+                    text="{{ messageAlert }}"
+                   >
+                </p-message>
             </div>
 
             <div *ngIf="inputParam.fieldType=='dropdown'" class="col-md-12">
                 <p-dropdown 
-                            id="{{ inputParam.fieldName}}"
-                            name="{{inputParam.fieldName}}"
-                            title="{{inputParam.tooltip}}" 
-                            [(ngModel)]="_value"
-                            [disabled]="!inputParam.active" 
-                            class=""
-
-                            [options]="fieldParameters['options']" 
-                            [required]="false"
-                            placeholder="Selectionner {{ inputParam.fieldParameters ['name']}}" 
-                            optionLabel="name" 
-                            [showClear]="true"
-                            filter="true"
-                            filterBy="code"
-                            editable="false">
+                    id="{{ inputParam.fieldName}}"
+                    name="{{inputParam.fieldName}}"
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active" 
+                    class=""
+                    [required]="fieldParameters['required']"
+                    [options]="fieldParameters['options']" 
+                    placeholder="Selectionner {{ inputParam.fieldParameters ['name']}}" 
+                    [optionLabel]="fieldParameters['optionLabel']"
+                    filter="fieldParameters['filterOn']" 
+                    filterBy="fieldParameters['filterBy']" 
+                    filterMatchMode="fieldParameters['filterMatchMode']" 
+                   >
                 </p-dropdown>
             </div>
 
@@ -163,11 +164,10 @@
                     [(ngModel)]="_value"
                     [disabled]="!inputParam.active" 
                     class=""
-
-                    [options]="fieldParameters['options']"  
-                    [required]="false"
-                   
-                   
+                    [required]="fieldParameters['required']"
+                    [options]="fieldParameters['options']"
+                    [optionLabel]="fieldParameters['optionLabel']"
+                    [multiple]="fieldParameters['multiple']"
                     ></p-selectButton>
             </div>
 
@@ -179,51 +179,35 @@
                     [(ngModel)]="_value"
                     [disabled]="!inputParam.active" 
                     class=""
-
-                    [options]="fieldParameters['options']"  
-                    [required]="false"
-                  
-                      
+                    [required]="fieldParameters['required']"
+                    [options]="fieldParameters['options']"
+                    [optionLabel]="fieldParameters['optionLabel']"  
+                    [selectionLimit]="fieldParameters['selectionLimit']" 
+                    filter="fieldParameters['filterOn']" 
+                    filterBy="fieldParameters['filterBy']" 
+                    filterMatchMode="fieldParameters['filterMatchMode']" 
                 >
                 </p-multiSelect>
             </div>
-            
-            <div *ngIf="inputParam.fieldType=='radio'" class="col-md-12">
-                <div class="ui-g" style="margin-bottom:10px">
-                    <span *ngFor="let valueRadioButton of fieldParameters['options'] let i = index " style="margin-right:10px">
-                        <div class="ui-g-12">
-                            <p-radioButton name="{{ fieldParameters['name'] }}"
-                                label=" {{ valueRadioButton.label ? valueRadioButton.label : valueRadioButton.value }}"
-                                [(ngModel)]="_value" value=" {{ valueRadioButton.value }}" inputId="{{i}}">
-                            </p-radioButton>
-                        </div>
-                    </span>
-                </div>
-            </div>
-
-
-
             <!-- composants ici -->
-
         </div>
     </div>
 
     <div *ngIf="inputParam.fieldType=='checkbox'" class="col-md-12">
         <div class="ui-g" style="width:250px;margin-bottom:10px">
-            <span *ngFor="let valueCheckbox of checkboxListPossibleValues; let c = index " style="margin-right:10px">
+            <h5>{{ inputParam.fieldLabel }}</h5>
+            <span *ngFor="let valueCheckbox of fieldParameters['options']; let c = index " style="margin-right:10px"> 
                 <div class="ui-g-12">
                     <p-checkbox 
-                        id="{{ inputParam.fieldName}}"
-                        name="{{ inputParam.fieldName }}" 
-                        title="{{inputParam.tooltip}}" 
-                        label=" {{ valueCheckbox }}"
+                        id="{{ fieldParameters[name] }}"
+                        name="{{ fieldParameters[name] }}"
+                        title="{{ fieldParameters[name] }}" 
                         [(ngModel)]="_value"
                         [disabled]="!inputParam.active" 
+                        label=" {{ valueCheckbox.label ? valueCheckbox.label  : valueCheckbox.value  }}"
                         class=""
-
-                        [(ngModel)]="_value" 
                         inputId=" {{c}}" 
-                        [required]="false" 
+                        [required]="fieldParameters['required']"
                     >
                     </p-checkbox>
                 </div>
@@ -231,38 +215,30 @@
         </div>
     </div>
 
-    
-
-    <div *ngIf="inputParam.fieldType=='submit'" class="col-md-12">
-        <div class="form-group">
-            <p-button 
-                id="{{ inputParam.fieldName}}"
-                type="button"
-                title="{{inputParam.tooltip}}" 
-                label="{{inputParam.fieldLabel}}"
-                [disabled]="!inputParam.active" 
-                class=""
-               
-
-               
-                (onClick)="handleClick($event)">
-            </p-button>
+    <div *ngIf="inputParam.fieldType=='radio'" class="col-md-12">
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+            <span *ngFor="let valueRadioButton of fieldParameters['options'] let i = index " style="margin-right:10px">
+                <div class="ui-g-12">
+                    <p-radioButton name="{{ fieldParameters['name'] }}"
+                        label=" {{ valueRadioButton.label ? valueRadioButton.label : valueRadioButton.value }}"
+                        [(ngModel)]="_value" value=" {{ valueRadioButton.value }}" inputId="{{i}}">
+                    </p-radioButton>
+                </div>
+            </span>
         </div>
     </div>
 
-    <div *ngIf="inputParam.fieldType=='reset'" class="col-md-12">
+    <div *ngIf="inputParam.fieldType=='button'" class="col-md-12">
         <div class="form-group">
             <p-button 
                 id="{{ inputParam.fieldName}}"
-                type="button"
-                title="{{inputParam.tooltip}}" 
                 label="{{inputParam.fieldLabel}}"
-                [disabled]="!inputParam.active" 
+                [disabled]="!inputParam.active"
                 class=""
-
-               
-                (onClick)="handleClick($event)"
-                icon="">
+                type="{{ fieldParameters['type'] }}"
+                icon= "{{ fieldParameters['icon'] }}"
+                iconPos = "{{ fieldParameters['iconPos'] }}"
+                (onClick)="handleClick($event)">
             </p-button>
         </div>
     </div>
