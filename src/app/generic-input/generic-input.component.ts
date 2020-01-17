@@ -15,7 +15,7 @@ export class GenericInputComponent implements OnInit {
   _value: any = null;
   regExpKeyFilter: RegExp;
   flagRegExValide: boolean;
-  messageAlert:string;
+  messageAlert: string;
   checkboxListPossibleValues: any[];
   checkboxGroupName: string;
 
@@ -49,7 +49,10 @@ export class GenericInputComponent implements OnInit {
       { fieldType: 'keyfilter', isLabelStandard: true },
       { fieldType: 'dropdown', isLabelStandard: true },
       { fieldType: 'selectbutton', isLabelStandard: true },
-      { fieldType: 'multiselect', isLabelStandard: true }
+      { fieldType: 'multiselect', isLabelStandard: true },
+      { fieldType: 'mask', isLabelStandard: true },
+      { fieldType: 'textarea', isLabelStandard: true },
+      { fieldType: 'file', isLabelStandard: true }
     ]
 
   }
@@ -57,17 +60,17 @@ export class GenericInputComponent implements OnInit {
   ngOnInit() {
 
     console.log('champs transmis', this.inputParam);
-    console.log( this.inputParam.fieldName);
-  
+    console.log(this.inputParam.fieldName);
+
 
     this.fieldParameters = this.inputParam.fieldParameters;
-    if (this.inputParam.fieldType=='keyfilter'){
+    if (this.inputParam.fieldType == 'keyfilter') {
       this.regExpKeyFilter = new RegExp(this.fieldParameters['regExp']);
-      console.log( this.regExpKeyFilter);
+      console.log(this.regExpKeyFilter);
 
     }
-   
-   
+
+
   }
 
   checkFieldParameters() {
@@ -99,7 +102,7 @@ export class GenericInputComponent implements OnInit {
     regExpTest = new RegExp(regExpString);
     console.log("Expression reguliere : " + regExpTest)
     //if (!this._value == null && !regExpTest.test(this._value)) {
-      if ( !regExpTest.test(this._value)) {
+    if (!regExpTest.test(this._value)) {
       this.messageAlert = "Renseigner un mail valide";
     } else {
       this.flagRegExValide = true;
@@ -107,9 +110,13 @@ export class GenericInputComponent implements OnInit {
     }
     console.log("message alert" + this.messageAlert);
   }
-  
+
 
   handleClick() {
     console.log('Action sur bouton ');
+  }
+
+  onBasicUpload($event){
+    console.log('Action sur file, onBasicUpload ');
   }
 }
