@@ -1,4 +1,4 @@
 {
     "environment":"development",
-    "apiUrl":"http://..."
+    "apiUrl":"https://localhost:44312/api/formconfig/demandtype/3"
 }

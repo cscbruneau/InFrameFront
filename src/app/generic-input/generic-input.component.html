@@ -15,6 +15,21 @@
                         [required]="fieldParameters['required']"                       
                          />
             </div>
+
+            <div *ngIf="inputParam.fieldType=='textarea'" class="col-md-12"> 
+                <textarea   id="{{ inputParam.fieldName }}"
+                            name="{{inputParam.fieldName}}"
+                            pInputTextarea
+                            title="{{inputParam.tooltip}}"
+                            [(ngModel)]="_value"
+                            [disabled]="!inputParam.active"
+                            class=""
+                            [required]="fieldParameters['required']"
+                            autoResize="true"
+                            [rows]="5" [cols]="50"      
+                         >
+                </textarea>      
+            </div>
             
             <div *ngIf="inputParam.fieldType=='password'">
                 <input 
@@ -34,6 +49,23 @@
                     showPassword="{{ fieldParameters['showPassword'] }}"
                    />
             </div>
+
+            <div *ngIf="inputParam.fieldType=='mask'">
+                <p-inputMask
+                    id="{{ inputParam.fieldName }}"
+                    name="{{inputParam.fieldName}}"
+                    type="text"
+                    title="{{inputParam.tooltip}}" 
+                    [(ngModel)]="_value"
+                    [disabled]="!inputParam.active"
+                    class="" 
+                    [required]="fieldParameters['required']" 
+                    mask="fieldParameters['mask']"
+                   >
+                </p-inputMask>
+            </div>
+
+
 
             <!--TODO DATES-->
             <div *ngIf="inputParam.fieldType=='date'">
@@ -243,4 +275,21 @@
         </div>
     </div>
 
+    <div *ngIf="inputParam.fieldType=='file'" class="col-md-12">
+        <div class="form-group">
+            <p-fileUpload
+                id="{{ inputParam.fieldName}}"
+                name="{{ fieldParameters[name] }}"
+                [disabled]="!inputParam.active"
+                multiple="multiple"
+                class=""
+                mode="basic"
+                url="./upload.php"
+                accept=""
+                maxFileSize="1000000"
+                (onUpload)="onBasicUpload($event)">
+
+            </p-fileUpload>
+        </div>
+    </div>
 </div>
