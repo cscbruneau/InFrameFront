@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 body {
-    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); // instagram gradient
+  //  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); // instagram gradient
+    height: 100vh;
+}
+
+container {
+    background: #833ab4;
+    border: 10px  solid;
 }
