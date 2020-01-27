@@ -2,23 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Field } from '../models/field.model';
 import { Group } from '../models/group.model';
 import { FormConfig } from '../models/formConfig.model';
-declare var require: any;
-var JSON = require('../files/test.json');
-
 import { GenericInputComponent } from '../generic-input/generic-input.component';
 import { FormConfigService } from '../services/form-config.service';
 
 @Component({
-  selector: 'app-demand-form',
-  templateUrl: './demand-form.component.html',
-  styleUrls: ['./demand-form.component.scss']
+  selector: 'app-ticket-form',
+  templateUrl: './ticket-form.component.html',
+  styleUrls: ['./ticket-form.component.scss']
 })
-export class DemandFormComponent implements OnInit {
+export class TicketFormComponent implements OnInit {
 
-  formConfigAPIRes: any;
   errorMessage: string = "default";
   dataLoaded: boolean = false;
-
   form: FormConfig;
   groups: Group[] = [];
   fields: Field[] = [];
@@ -26,17 +21,16 @@ export class DemandFormComponent implements OnInit {
   columnWidthClass: string;
   listIndexColumns: number[] = [];
 
+
   constructor(private formConfigService: FormConfigService) { }
 
   ngOnInit() {
-
     this.getFormConfig();
     console.log(this.errorMessage);
   }
 
   getFormConfig() {
-    console.log('Récupération de la configuration du formulaire');
-    this.formConfigService.getJSON().subscribe(
+    this.formConfigService.getJSONbyRef('4').subscribe(
       x => {
         console.log(x);
         this.form = x;
@@ -44,26 +38,12 @@ export class DemandFormComponent implements OnInit {
         this.getColumns();
         this.dataLoaded = true;
       },
-      error => this.errorMessage = 'Incident lors de la récupération du paramètrage du formulaire'
+      error => this.errorMessage = "Erreur lors du GetJson  "
     );
   }
 
-  getFormValues(){
-    console.log('Récupération des données du formulaire');
-    this.formConfigService.getJSON().subscribe(
-      x => {
-        console.log(x);
-        this.form = x;
-        this.getColumnWidthClass();
-        this.getColumns();
-        this.dataLoaded = true;
-      },
-      error => this.errorMessage = 'Incident lors de la récupération du paramètrage du formulaire'
-    );
-  }
-
-  // construit la class bootstrap pour la colonne
-  getColumnWidthClass() {
+   // construit la class bootstrap pour la colonne
+   getColumnWidthClass() {
     this.columnWidthClass = 'col-md-' + (12 / this.form.columnNumber).toString();
     console.log(this.columnWidthClass);
   }
@@ -84,7 +64,6 @@ export class DemandFormComponent implements OnInit {
     let i;
     for (i = 0; i < this.form.formGroups.length; i++) {
       listIndexGroup.push(i);
-      //console.log(listIndexGroup);
     }
 
     this.form.formGroups.filter(group => group.columnIndex === colIndex).forEach(group => {
@@ -93,7 +72,5 @@ export class DemandFormComponent implements OnInit {
 
     //console.log(this.groups[0]);
     return this.groups;
-
   }
-
 }

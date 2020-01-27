@@ -1,0 +1,69 @@
+<div class="form-container shadow-lg p-3 mb-5 bg-white rounded">
+    <div id="form-title">Liste des tickets </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Projet</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">workflow</th>
+                        <th scope="col">Service</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Serious game</td>
+                        <td>Création CRUD utilisateur</td>
+                        <td>20/01/2020</td>
+                        <td>En cours</td>
+                        <td>dev</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Serious game</td>
+                        <td>Prise en main outil VTS</td>
+                        <td>2/01/2020</td>
+                        <td>En cours</td>
+                        <td>dev</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Serious game</td>
+                        <td>Intégration gabarit</td>
+                        <td>20/12/2019</td>
+                        <td>En cours</td>
+                        <td>dev</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="form-title">Liste des types de formulaire </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">type de formulaire</th>
+                        <th scope="col">Nb de colonnes</th>
+                        <th scope="col">Actif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ticket of listFormulaires; let i = index">
+                        <td> {{ ticket.id }}</td>
+                        <td><a href="tickets/ {{ ticket.title }}">{{ ticket.title }}</a></td>
+                        <td> {{ ticket.columnNumber }}</td>
+                        <td *ngIf="ticket.active==true" class="color-sample"> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,11 @@ export const environment = {
   // API
   apiUrl: 'https://localhost:44312/api/',
 
-  demandeTypeEndpoint: 'formconfig/'
+  demandeTypeEndpoint: 'formconfig/',
+  listeTicketsEndPoint: '', // En attente back
+  listeFormsEndPoint: '',
+  listeTypeForm: 'formtypes',
+  demandeValuesEndpoint: ''
 
 
 };

@@ -11,7 +11,7 @@
                         title="{{inputParam.tooltip}}"
                         [(ngModel)]="_value"
                         [disabled]="!inputParam.active"
-                        class="form-control" 
+                        class="form-control"
                         [required]="fieldParameters['required']"                       
                          />
             </div>
@@ -26,7 +26,7 @@
                             class=""
                             [required]="fieldParameters['required']"
                             autoResize="true"
-                            [rows]="5" [cols]="50"      
+                            [rows]="fieldParameters['rows']"  [cols]="fieldParameters['cols']"    
                          >
                 </textarea>      
             </div>
