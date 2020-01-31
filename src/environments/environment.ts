@@ -9,9 +9,10 @@ export const environment = {
   apiUrl: 'https://localhost:44312/api/',
 
   demandeTypeEndpoint: 'formconfig/',
-  listeTicketsEndPoint: '', // En attente back
+  ticketEndPoint: 'ticket/',
   listeFormsEndPoint: '',
   listeTypeForm: 'formtypes',
+  listeTickets: 'List',
   demandeValuesEndpoint: ''
 
 

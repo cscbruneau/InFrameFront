@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { Field } from '../models/field.model';
+import { Field } from '../../../models/field.model';
 
 @Component({
   selector: 'app-generic-input',
