@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Field } from '../models/field.model';
-import { Group } from '../models/group.model';
-import { FormConfig } from '../models/formConfig.model';
-import { GenericInputComponent } from '../generic-input/generic-input.component';
-import { FormConfigService } from '../services/form-config.service';
+import { Field } from '../../../models/field.model';
+import { Group } from '../../../models/group.model';
+import { FormConfig } from '../../../models/formConfig.model';
+import { GenericInputComponent } from '../../Commmon/generic-input/generic-input.component';
+import { FormConfigService } from '../../../services/form-config.service';
+
 
 @Component({
   selector: 'app-ticket-form',
@@ -21,10 +22,9 @@ export class TicketFormComponent implements OnInit {
   columnWidthClass: string;
   listIndexColumns: number[] = [];
 
-
   constructor(private formConfigService: FormConfigService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getFormConfig();
     console.log(this.errorMessage);
   }
@@ -42,8 +42,8 @@ export class TicketFormComponent implements OnInit {
     );
   }
 
-   // construit la class bootstrap pour la colonne
-   getColumnWidthClass() {
+  // construit la class bootstrap pour la colonne
+  getColumnWidthClass() {
     this.columnWidthClass = 'col-md-' + (12 / this.form.columnNumber).toString();
     console.log(this.columnWidthClass);
   }
@@ -55,7 +55,6 @@ export class TicketFormComponent implements OnInit {
       this.listIndexColumns.push(i);
     }
   }
-
   getGroupsOfColumn(colIndex: number) {
     console.log('indexColonne : ' + colIndex);
     this.groups = [];

@@ -1,0 +1,57 @@
+<div class="form-container shadow-lg p-3 mb-5 bg-white rounded">
+    <div id="form-title">Tickets</div>
+    <div class="row">
+        <div class="card col-md-12">
+            <h5 class="card-title"></h5>
+            <form (ngSubmit)="onSubmitNew(fTypeInter)" #fTypeInter="ngForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label *ngIf="optionTypeFormLoaded" for="typeticket">Type de ticket</label>
+                        <div class="form-group">
+                            <p-dropdown 
+                                id="typeticket" 
+                                name="typeticket" 
+                                title="Type de ticket" 
+                                class=""
+                                [options]="optionTypeForm" 
+                                optionLabel="name" 
+                                placeholder="Type de formulaire"
+                                [(ngModel)]="optionSelected">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <p-button id="btnAjouter" label="Ajouter" type="submit" icon="pi pi-plus" iconPos="left">
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card col-md-12 p-3 mb-5">
+            <h5 class="card-title">Tickets en cours </h5>
+            <form (ngSubmit)="onSubmitView(fInter)" #fInter="ngForm">
+                <div class="row">
+                    <ag-grid-angular
+                        #agGrid
+                        id="myGrid"
+                        style="width: 100%; height: 500px;"
+                        class="ag-theme-balham"
+                        [columnDefs]="columnDefs"
+                        [rowData]="rowDataTicket"
+                        [rowSelection]="rowSelection"
+                        (selectionChanged)="onSelectionChanged($event)"
+                        (gridReady)="onGridReady($event)">
+                    </ag-grid-angular>
+                </div>
+                <div class="row">
+                    <p-button id="btnDetail" label="Détail" type="submit" icon="pi pi-search-plus" iconPos="left">
+                    </p-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

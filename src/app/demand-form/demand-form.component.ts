@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Field } from '../models/field.model';
 import { Group } from '../models/group.model';
 import { FormConfig } from '../models/formConfig.model';
-declare var require: any;
-var JSON = require('../files/test.json');
-
-import { GenericInputComponent } from '../generic-input/generic-input.component';
+import { GenericInputComponent } from '../components/Commmon/generic-input/generic-input.component';
 import { FormConfigService } from '../services/form-config.service';
+declare var require: any;
+
 
 @Component({
   selector: 'app-demand-form',
@@ -16,7 +15,7 @@ import { FormConfigService } from '../services/form-config.service';
 export class DemandFormComponent implements OnInit {
 
   formConfigAPIRes: any;
-  errorMessage: string = "default";
+  errorMessage: string = 'default';
   dataLoaded: boolean = false;
 
   form: FormConfig;
@@ -29,31 +28,19 @@ export class DemandFormComponent implements OnInit {
   constructor(private formConfigService: FormConfigService) { }
 
   ngOnInit() {
-
     this.getFormConfig();
     console.log(this.errorMessage);
   }
 
   getFormConfig() {
     console.log('Récupération de la configuration du formulaire');
-    this.formConfigService.getJSON().subscribe(
+    this.formConfigService.getJSONbyRef('3').subscribe(
       x => {
+        console.log("recu par le service");
         console.log(x);
         this.form = x;
-        this.getColumnWidthClass();
-        this.getColumns();
-        this.dataLoaded = true;
-      },
-      error => this.errorMessage = 'Incident lors de la récupération du paramètrage du formulaire'
-    );
-  }
-
-  getFormValues(){
-    console.log('Récupération des données du formulaire');
-    this.formConfigService.getJSON().subscribe(
-      x => {
-        console.log(x);
-        this.form = x;
+        console.log("transformé en FormConfig ");
+        console.log(this.form.validationMessage);
         this.getColumnWidthClass();
         this.getColumns();
         this.dataLoaded = true;
@@ -93,7 +80,5 @@ export class DemandFormComponent implements OnInit {
 
     //console.log(this.groups[0]);
     return this.groups;
-
   }
-
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { environment } from 'src/environments/environment';
+import { FormConfig } from '../models/formConfig.model';
 
 
 @Injectable({
@@ -9,36 +11,54 @@ import { environment } from 'src/environments/environment';
 })
 export class FormConfigService {
 
-  public formConfigAPI: string = environment.apiUrl + environment.demandeTypeEndpoint;
-  public listeFormsAPI: string = environment.apiUrl + environment.listeFormsEndPoint;
-  public listeticketsAPI: string = environment.apiUrl + environment.listeTicketsEndPoint;
-  public listetypeForm = environment.apiUrl + environment.listeTypeForm;
+  // Appels API
+  private formConfigAPI: string = environment.apiUrl + environment.demandeTypeEndpoint;
+  private listeFormsAPI: string = environment.apiUrl + environment.listeFormsEndPoint;
+  private listeticketsAPI: string = environment.apiUrl + environment.ticketEndPoint + environment.listeTickets;
+  private listetypeForm = environment.apiUrl + environment.demandeTypeEndpoint + environment.listeTypeForm;
+  // formulaire courant
+  private currentForm: FormConfig;
+  currentFormSubject = new Subject<FormConfig>();
+  private formList: FormConfig[];
+  formListSubject = new Subject<FormConfig[]>();
 
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-    this.getJSON().subscribe(data => {
-      console.log(data);
-
-    });
+   emitCurrentFormSubject() {
+    this.currentFormSubject.next(this.currentForm);
   }
 
-  public getJSON(): Observable<any> {
-    return this.http.get<any>(this.formConfigAPI + '3');
+   emitFormListSubject() {
+    this.formListSubject.next(this.formList.slice());
   }
 
-  public getJSONbyRef(ref: string): Observable<any> {
+  /**
+   * Charge un formulaire à partir de sa référence
+   * @param ref : id, référence du formulaire
+   */
+  public getJSONbyRef(ref: string) {
     return this.http.get<any>(this.formConfigAPI + ref);
   }
 
-  public  getJSONListForm(): Observable<any> {
+  /**
+   * Charge l'ensemble des formulaires 
+   */
+  public getJSONListForm(): Observable<any> {
     return this.http.get<any>(this.listeFormsAPI);
   }
 
-  public  getJSONListTicket(): Observable<any> {
+  /**
+   * Charge la liste des tickets en cours
+   */
+  public getJSONListTicket(): Observable<any> {
     return this.http.get<any>(this.listeticketsAPI);
   }
 
-  public  getJSONListeTypeForm(): Observable<any> {
+  /**
+   * Charge les différents types de formulaires existants
+   */
+  public getJSONListeTypeForm(): Observable<any> {
+    console.log(this.listetypeForm);
     return this.http.get<any>(this.listetypeForm);
   }
 }
