@@ -14,8 +14,6 @@ export const environment = {
   listeTypeForm: 'formtypes',
   listeTickets: 'List',
   demandeValuesEndpoint: ''
-
-
 };
 
 //https://localhost:44312/api/formconfig/demandtype/3

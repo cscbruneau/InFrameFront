@@ -93,7 +93,11 @@ export class ListTicketsComponent implements OnInit {
    * @param form 
    */
   onSubmitNew(form: NgForm) {
-    const type = this.optionSelected['name'];
+    // TODO rechercher formConfigId
+    //const typeTicket = this.optionSelected['typeId'];
+    const typeTicket = '4';
+    this.router.navigate(['/ticket/new/' + typeTicket]);
+    /*const type = this.optionSelected['name'];
     switch (type) {
       case 'demand': {
         this.router.navigate(['/demand/new']);
@@ -106,7 +110,7 @@ export class ListTicketsComponent implements OnInit {
       default: {
         break;
       }
-    }
+    }*/
   }
 
   /**
@@ -115,10 +119,13 @@ export class ListTicketsComponent implements OnInit {
    */
   onSubmitView(form: NgForm) {
     const selectedRows = this.gridApi.getSelectedRows();
-    const refInter =  selectedRows[0].id;
-    const selectedType = selectedRows[0].typeId;
-    console.log(selectedRows);
-    console.log(refInter);
+    console.log('*****' + selectedRows.type);
+    if (selectedRows) {
+      const refInter = selectedRows[0].id;
+      const selectedType = selectedRows[0].typeId;
+      console.log(selectedRows);
+      console.log(refInter);
+    }
   }
 
   ngOnDestroy() {
@@ -130,7 +137,7 @@ export class ListTicketsComponent implements OnInit {
     console.log('onSelectionChanged');
     const selectedRows = this.gridApi.getSelectedRows();
     console.log(selectedRows);
-    const refInter =  selectedRows[0].id;
+    const refInter = selectedRows[0].id;
     const selectedType = selectedRows[0].typeId;
     console.log(refInter);
   }
