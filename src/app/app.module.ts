@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GenericInputComponent } from './components/Commmon/generic-input/generic-input.component';
 import { TicketFormComponent } from './components/ticket/ticket-form/ticket-form.component';
-import { DemandFormComponent } from './demand-form/demand-form.component';
 import { HeaderComponent } from './components/General/header/header.component';
 import { ListFormComponent } from './list-form/list-form.component';
 import { FormsModule } from '@angular/forms';
@@ -40,23 +39,10 @@ import { MenubarModule } from 'primeng/menubar';
 import { AgGridModule } from 'ag-grid-angular';
 
 
-
-const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'demands', component: ListFormComponent },
-  { path: 'demand/new', component: DemandFormComponent },
-  { path: 'demand/:id', component: DemandFormComponent },
-  { path: 'tickets', component: ListTicketsComponent },
-  { path: 'ticket/new', component: TicketFormComponent },
-  { path: 'tickets/:id', component: TicketFormComponent },
-  { path: '', component: HomeComponent }
-];
-
 @NgModule({
   declarations: [
     AppComponent,
     GenericInputComponent,
-    DemandFormComponent,
     TicketFormComponent,
     HeaderComponent,
     ListFormComponent,
@@ -87,7 +73,6 @@ const appRoutes: Routes = [
     MultiSelectModule,
     InputTextareaModule,
     MenubarModule,
-    RouterModule.forRoot(appRoutes),
     AgGridModule.withComponents([])
   ],
   providers: [FormConfigService],

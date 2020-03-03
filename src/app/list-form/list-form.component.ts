@@ -16,7 +16,6 @@ export class ListFormComponent implements OnInit {
   unTicket: FormConfig;
 
   constructor(private formConfigService: FormConfigService) {
-   
    }
 
   ngOnInit() {
@@ -25,7 +24,6 @@ export class ListFormComponent implements OnInit {
     this.getFormConfigbyRef('3');
     this.getFormConfigbyRef('4');
     console.log(this.errorMessage);
-
   }
 
   getListeTickets() {
@@ -51,5 +49,4 @@ export class ListFormComponent implements OnInit {
       error => this.errorMessage = "Erreur lors du GetJson  "
     );
   }
-
 }
